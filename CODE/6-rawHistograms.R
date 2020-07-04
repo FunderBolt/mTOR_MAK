@@ -8,7 +8,9 @@ library(caret)
 
 ### load data
 getwd()
-data<-read.csv(file=here("1-Data","MAK_rapamycin_CCM_20200530_nmol_g.csv"),header=TRUE)
+data<-read.csv(file=here("1-Data","MAK_rapamycin_CCM_20200530_nmol_g.csv"), header=TRUE)
+data<-read.csv(file=here("1-Data","MAK_rapamycin_CCM_20200530_protcorr.csv"), header=TRUE)
+
 
 ###subset the data
 colnames(data)
@@ -22,7 +24,7 @@ colnames(data)
 ###create the histograms using a loop
 for(i in 7:ncol(data))
 {
-  file.name<-paste0(colnames(data)[i],"_histogram.jpeg")
+  file.name<-paste0(colnames(data)[i],"_histogram_protcorr.jpeg")
   jpeg(filename=file.name)
   hist(data[,i],xlab = colnames(data)[i], main = paste0("Histogram of ",colnames(data)[i]))
   dev.off()
@@ -39,7 +41,7 @@ colnames(idata)
 ###create the histograms using a loop
 for(i in 7:ncol(data))
 {
-  file.name<-paste0(colnames(idata)[i],"_log_histogram.jpeg")
+  file.name<-paste0(colnames(idata)[i],"_log_histogram_protcorr.jpeg")
   jpeg(filename=file.name)
   hist(idata[,i],xlab = colnames(idata)[i], main = paste0("Histogram of Log ",colnames(idata)[i]))
   dev.off()
@@ -59,7 +61,7 @@ colnames(idata_trans)
 ###create the histograms using a loop
 for(i in 7:ncol(data))
 {
-  file.name<-paste0(colnames(idata_trans)[i],"_boxCox_histogram.jpeg")
+  file.name<-paste0(colnames(idata_trans)[i],"_boxCox_histogram_protcorr.jpeg")
   jpeg(filename=file.name)
   hist(idata_trans[,i],xlab = colnames(idata_trans)[i], main = paste0("Histogram of BoxCox ",colnames(idata_trans)[i]))
   dev.off()
@@ -67,4 +69,4 @@ for(i in 7:ncol(data))
 
 
 
-write.csv(data, file=here("1-Data","MAK_rapamycin_CCM_20200530_nmol_g_BoxCox.csv"))
+write.csv(data, file=here("1-Data","MAK_rapamycin_CCM_20200530_protcorr_BoxCox.csv"))
