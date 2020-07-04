@@ -8,6 +8,8 @@ library(here)
 ### load data
 getwd()
 data<-read.csv(file=here("1-Data","MAK_rapamycin_CCM_20200530_nmol_g_BoxCox.csv"),header=TRUE)
+data<-read.csv(file=here("1-Data","MAK_rapamycin_CCM_20200530_protcorr_BoxCox.csv"),header=TRUE)
+
 
 ###subset the data
 colnames(data)
@@ -44,6 +46,9 @@ colnames(data)[1:20]
 idata<-data[!data$Group==3,]
 idata<-data[!data$Group==2,]
 idata<-data[!data$Group==1,]
+
+
+
 ###GLMs for all metabolites --- create a function
 GLM.run<-function(y) {
   form <- as.formula(paste0(y,"~ Group"))
@@ -96,6 +101,9 @@ colnames(estim.coef.results)<-c("est.intercept","est.G2_G3",
                                 "t.intercept","t.G2_G3",
                                 "p.intercept","p.G2_G3")
 head(estim.coef.results)
+
+
+
 #ALL_estim.coef.results<-estim.coef.results
 ALL_estim.coef.results<-cbind(ALL_estim.coef.results,  estim.coef.results)
 
@@ -128,7 +136,8 @@ head(ALL_estim.coef.results)
 ALL_estim.coef.results<-apply(ALL_estim.coef.results,2, signif, digits=2)
 head(ALL_estim.coef.results)
 
-write.csv(ALL_estim.coef.results,file="BoxCoxTransform_coefficients_allCCs_round2digits.csv")
+write.csv(ALL_estim.coef.results,file=paste0("BoxCoxTransform_coefficients_allCCs_round2digits_",Sys.Date(), ".csv"))
+write.csv(ALL_estim.coef.results,file=paste0("BoxCoxTransform_protcorr_coefficients_allCCs_round2digits_",Sys.Date(), ".csv"))
 
 
 
