@@ -226,10 +226,18 @@ plot_Data<-plot_Data[plot_Data$names %in% metabs$Metabolite, ]
 
 ## cleaning variable names 
 dput(plot_Data$names)
-plot_Data$names<-c("GMP", "GDP", "cyclic.AMP", "Acetylglucosamine 1P", "Acetyl Phosphate", 
+plot_Data$names<-c("GMP", "GDP", "cyclic.AMP", "Acetyl Phosphate", 
                    "2,3 bisP Glycerate", "Sedoheptulose 7P", "Acetyl CoA", "NAD", 
                    "NADH", "NADPH", "Erythrose 4P", "Glycerylaldehyde 3P", "Mannose 6P", 
                    "Ribose 5P", "a-Hydroxyglutaric ac.", "Glycolic ac.", "Isocitric ac.")
+
+
+plot_Data$names<-c("GDP", "UDP", "cyclic.AMP", "Acetyl.Phosphate", "X2.3.bisP.Glycerate", 
+  "total.of.Fructose.bisP.Glucose.1.6.bisP", "Sedoheptulose.7P", 
+  "Acetyl.CoA", "Hs.CoA", "NAD.", "NADH", "NADPH", "Glucose", "Glycerylaldehyde.3P", 
+  "Ribose.5P", "a.Hydroxyglutaric.acid", "Citric.acid", "Glycolic.acid", 
+  "Isocitric.acid", "Pyruvic.acid", "Succinic.acid")
+
 colnames(plot_Data)
 
 
@@ -237,7 +245,7 @@ colnames(plot_Data)
 p1<-ggplot(aes(x=x, y=y), data=plot_Data)+
   geom_point()+
  scale_x_continuous(lim=c(-1.5,1.5))+
-  scale_y_continuous(lim=c(-1,1))+
+  scale_y_continuous(lim=c(-1.5,1.5))+
   geom_circle(aes(x0 = 0, y0 = 0, r = 1), inherit.aes = FALSE, colour="grey30", size=0.75)+
   geom_circle(aes(x0 = 0, y0 = 0, r = 0.5), inherit.aes = FALSE, colour="grey50", size=0.5, linetype=2)+
   geom_hline(yintercept=0, linetype="dashed",color="grey") +
@@ -254,7 +262,7 @@ p1
 
 
 
-#vars.in<-plotIndiv(out.plsDA)[[1]]
+vars.in<-plotIndiv(out.plsDA)[[1]]
 
 
 p2<-ggplot(aes(x=x, y=y), data=vars.in)+
@@ -279,11 +287,13 @@ p_all
 
 # saves as .svg size 1000 800
 ggsave(file="Fig_PLSDA_byGroups.svg", plot=p_all, width=12, height=6)
-ggsave(file="Fi3_PLSDA_byGroups.pdf", plot=p_all, width=12, height=6)
+ggsave(file="Fig_PLSDA_byGroups.pdf", plot=p_all, width=12, height=6)
 
 
 
-
+# saves as .svg size 1000 800
+ggsave(file="Fig_PLSDA_byGroups_noProtcorr.svg", plot=p_all, width=12, height=6)
+ggsave(file="Fig_PLSDA_byGroups_noProtcorr.pdf", plot=p_all, width=12, height=6)
 
 
 # #### Making Roc curves
